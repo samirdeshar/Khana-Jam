@@ -24,19 +24,19 @@
 <body id="top">
     @include('frontend.layouts.header')
 
-    {{-- <div  class="preloader" data-preaload>
+    <div  class="preloader" data-preaload>
         <div class="circle"></div>
-        <p class="text">Order Munch</p>
-    </div> --}}
+        <p class="text">KHANA JAM</p>
+    </div>
 
 
-    {{-- <div class="preloader">
+    <div class="preloader">
         <div class="container">
-          <div class="dot dot-1">ORDER </div>
-          <div class="dot dot-2">ORDER </div>
-          <div class="dot dot-3">ORDER </div>
+          <div class="dot dot-1">Search</div>
+          <div class="dot dot-2">Explore </div>
+          <div class="dot dot-3">Eat </div>
         </div>
-    </div> --}}
+    </div>
 
     @yield('main_content')
 

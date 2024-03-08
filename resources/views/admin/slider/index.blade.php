@@ -126,7 +126,7 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <a href="{{ route('slider-update-status', [$post->id, $post->status]) }}">
+                                                    <a href="{{ route('slider-update-status', [$post->`, $post->status]) }}">
                                                         <span
                                                             class="badge rounded-pill bg-{{ $post->status == 'active' ? 'success' : 'danger' }}"><i
                                                                 class="bi {{ $post->status == 'active' ? 'bi-check-circle me-1 ' : 'bi-exclamation-octagon me-1' }} "></i>

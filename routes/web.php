@@ -29,7 +29,7 @@ use Illuminate\Support\Facades\Auth;
 //  -----------------------------------------------Backend Admin Routes Starts Here-------------------------------------
 
 
-Route::get('/', [FrontController::class, 'home']);
+Route::get('/', [FrontController::class, 'home'])->name('fronthome');
 
 
 Route::get('explore_resturants', [FrontController::class, 'mapsdata'])->name('maps');

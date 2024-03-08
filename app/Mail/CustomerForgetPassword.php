@@ -29,6 +29,6 @@ class CustomerForgetPassword extends Mailable
      */
     public function build()
     {
-        return $this->view('frontend.resetpasswordmail')->with('email',$this->email);
+        return $this->view('frontend.mail.resetpasswordmail')->with('email',$this->email);
     }
 }

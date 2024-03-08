@@ -24,7 +24,7 @@ Route::get('/customer/dashboard',[LoginController::class,'customerDashboard'])->
 
 Route::get('/customer/book/login',[LoginController::class,'bookWithLogin'])->name('customer.bookloginData');
 
-Route::get('/customer/logout',function()
+Route::post('/customer/logout',function()
 {
     Auth::guard('customer')->logout();
     return redirect()->route('customer.login')  ;

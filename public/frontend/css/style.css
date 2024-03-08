@@ -4101,7 +4101,7 @@ table.shop_table.table-responsive .coupon {
   z-index: 999111111;
   left: 0;
   top: 0;
-  transition-duration: 1s;
+  transition-duration: 0.1s;
   -webkit-transition-duration: 1s;
   transition-timing-function: cubic-bezier(0.86, 0, 0.09, 1);
   -webkit-transition-timing-function: cubic-bezier(0.86, 0, 0.09, 1);
@@ -4141,7 +4141,7 @@ table.shop_table.table-responsive .coupon {
 }
 
 .dot-2 {
-  background-color: #000;
+  background-color: #972727;
   animation: dot-2-move 2s ease infinite, index 6s -4s ease infinite;
 }
 

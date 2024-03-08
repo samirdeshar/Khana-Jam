@@ -26,6 +26,10 @@ class FrontController extends Controller
             $restaurant->averageRating = $this->calculateAverageRating($restaurant);
         }
         $sortedRestaurants = $restaurants->sortByDesc('averageRating');
+        $sortedRestaurants = $restaurants->filter(function ($restaurant) {
+            return $restaurant->averageRating > 2;  
+        });
+
 
 
         return view('frontend.home', $value, ['restaurants' => $sortedRestaurants]);
@@ -47,17 +51,15 @@ class FrontController extends Controller
     public function resturantdetailPage($slug)
     {
         // Get the data for the current page using the provided slug
+        $posts = MapsData::where('status', 'active')->get();
         $data = MapsData::where('slug', $slug)->first();
         $comments = Comment::where('res_id', $data->id)->latest()->take(10)->get();
-        // Check if the current page exists
         if (!$data) {
             abort(404);
         }
         // Extract keywords from the current page
         $currentKeywords = explode(',', $data->keywords);
-        // Get all pages excluding the current one
         $allPages = MapsData::where('slug', '!=', $slug)->get();
-        // Calculate similarity scores and store in an array
         $similarityScores = [];
 
         foreach ($allPages as $page) {
@@ -73,8 +75,15 @@ class FrontController extends Controller
         });
         // Get recommendations based on the filtered similarity scores
         $recommendations = MapsData::whereIn('id', array_keys($filteredRecommendations))->where('status', 'active')->get();
+        foreach ($recommendations as $restaurant) {
+            $restaurant->averageRating = $this->calculateAverageRating($restaurant);
+        }
+        $sortedRestaurants = $recommendations->sortByDesc('averageRating');
+        $sortedrecommendations = $recommendations->filter(function ($restaurant) {
+            return $restaurant->averageRating > 2;  
+        });
         // Pass data to the view
-        return view('frontend.detailpage', compact('data', 'recommendations', 'comments'));
+        return view('frontend.detailpage', compact('data', 'recommendations', 'comments','posts'));
     }
 
 
@@ -93,17 +102,14 @@ class FrontController extends Controller
     {
         // Create vectors with unique keywords
         $uniqueKeywords = array_unique(array_merge($keywords1, $keywords2));
-        // Initialize vectors with zero values
         $vector1 = array_fill_keys($uniqueKeywords, 0);
         $vector2 = array_fill_keys($uniqueKeywords, 0);
-        // Update vector values based on keyword occurrences
         foreach ($vector1 as $keyword => &$value) {
             $value = in_array($keyword, $keywords1) ? 1 : 0;
         }
         foreach ($vector2 as $keyword => &$value) {
             $value = in_array($keyword, $keywords2) ? 1 : 0;
         }
-        // Calculate cosine similarity using your existing logic
         $dotProduct = array_sum(array_map(function ($x, $y) {
             return $x * $y;
         }, $vector1, $vector2));
