@@ -48,6 +48,8 @@ Route::post('save-comment', [FrontController::class, 'comment'])->name('save-com
 });
 
 Route::get('/search', [SearchController::class, 'searchdata'])->name('search');
+Route::get('/sort-results', [SearchController::class,'sortResults'])->name('sort.results');
+
 Route::get('/search/suggestions', [SearchController::class, 'suggestions'])->name('search.suggestions');
 
 Route::get('/general/{slug?}',[FrontendController::class, 'getPage']);

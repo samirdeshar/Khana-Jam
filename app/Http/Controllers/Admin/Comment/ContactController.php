@@ -68,4 +68,26 @@ class ContactController extends Controller
             Toastr::warning($th->getMessage(), 'OOPs !!!');
         }
     }
+    public function contact_view()
+    {
+        $data = Contact::orderbyDesc('created_at')
+                    ->get();
+        return view('admin.contact_us.contact_us', compact('data'));
+
+    }
+    public function contact_destroy(Request $request, $message)
+    {
+        // dd('test');
+        $message = Contact::findOrFail($message);
+        DB::beginTransaction();
+        try {
+            $message->delete();
+            DB::commit();
+            Toastr::success('Successfully Deleted', 'Thank You');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            Toastr::warning($th->getMessage(), 'OOPs !!!');
+        }
+        return back();
+    }
 }

@@ -79,6 +79,8 @@ Route::group(['prefix'=>'admin','middleware'=>'auth'],function()
     });
 
     Route::resource('admin/all-messages', ContactController::class)->middleware('auth');
+    Route::get('admin/all_contacts', [ContactController::class, 'contact_view'])->name('contact_view')->middleware('auth');
+    Route::delete('admin/contact_delete/{contcatValue}', [ContactController::class, 'contact_destroy'])->name('contact_us_destroy')->middleware('auth');
 
 
 

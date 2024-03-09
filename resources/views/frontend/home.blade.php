@@ -1,6 +1,56 @@
 @extends('frontend.layouts.main')
 @push('style')
+    <style>
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            margin: auto;
+        }
+
+        .carousel1 {
+            display: flex;
+            overflow-x: hidden;
+            /* Hide the horizontal scrollbar */
+        }
+
+
+        .carousel-item1 {
+            flex: 0 0 auto;
+            width: 300px;
+            margin-right: 20px;
+            background-color: #ffffff;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+
+        .carousel-item1 img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px 10px 0 0;
+            /* Rounded top corners for the image */
+        }
+
+        .carousel-item1 .content {
+            padding: 20px;
+        }
+
+        .carousel-item1 h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #333333;
+        }
+
+        .carousel-item1 p {
+            margin: 10px 0;
+            font-size: 14px;
+            color: #666666;
+        }
+    </style>
 @endpush
+
+
 @section('main_content')
     <section class="featured-arae-three gap" style="background-image:url(frontend/img/patron-black.jpg)">
         <div class="container">
@@ -36,7 +86,9 @@
                                         </div>
                                     </div> --}}
                                 </div>
-                                <img src="{{ asset($item->image) }}" style="height: 350px; width:500px; border-radius:10px 10px 10px 10px;margin-top:10px;" alt="img">
+                                <img src="{{ asset($item->image) }}"
+                                    style="height: 350px; width:500px; border-radius:10px 10px 10px 10px;margin-top:10px;"
+                                    alt="img">
                             </div>
                         </div>
                     </div>
@@ -48,52 +100,61 @@
         <div class="container">
             <div class="row">
                 <h3 class="text-center m-5">Recommended Posts</h3>
-                @if (auth()->guard('customer')->check())
-                    @php
-                        $customerCity = strtolower(auth()->guard('customer')->user()->city);
-                    @endphp
-                    @foreach ($data as $restaurant)
-                        {{-- @dd($resturant) --}}
-                        @if (strtolower($restaurant->city) == $customerCity)
-                            <div class="col-xl-4">
-                                <div class="posts recent-posts">
-                                    <ul>
-                                        <img class="align-content-center " alt="img"
-                                            src="{{ asset($restaurant->image) }}" style="height: 100px; width:100px;">
-                                        <div>
-                                            <a href="{{ route('res_details', ['slug' => $restaurant->slug]) }}">
-                                                <h3>{{ $restaurant->name }}</h3>
-                                            </a>
-                                            <p>{{ substr(strip_tags($restaurant->description), 0, 100) }}</p></a>
-
+                <div class="carousel-container">
+                    <div class="carousel1">
+                        @if (auth()->guard('customer')->check())
+                            @php
+                                $customerCity = strtolower(auth()->guard('customer')->user()->city);
+                            @endphp
+                            @foreach ($data as $restaurant)
+                                @if (strtolower($restaurant->city) == $customerCity)
+                                    <div class="carousel-item1">
+                                        <div class="posts recent-posts">
+                                            <ul>
+                                                <li>
+                                                    <img class="align-content-center" alt="img"
+                                                        src="{{ asset($restaurant->image) }}"
+                                                        style="height: 100px; width:100px;">
+                                                    <div>
+                                                        <a href="{{ route('res_details', ['slug' => $restaurant->slug]) }}">
+                                                            <h3>{{ $restaurant->name }}</h3>
+                                                        </a>
+                                                        <p>{{ substr(strip_tags($restaurant->description), 0, 100) }}</p>
+                                                    </div>
+                                                </li>
+                                            </ul>
                                         </div>
-
-                                    </ul>
-                                </div>
-                            </div>
-                        @endif
-                    @endforeach
-                @else
-                    @foreach ($data as $restaurant)
-                        <div class="col-xl-4">
-                            <div class="posts recent-posts">
-                                <ul>
-                                    <img class="align-content-center" alt="img" src="{{ asset($restaurant->image) }}"
-                                        style="height: 100px; width:100px;">
-                                    <div>
-                                        <a href="{{ route('res_details', ['slug' => $restaurant->slug]) }}">
-                                            <h3>{{ $restaurant->name }}</h3>
-                                        </a>
-                                        <p>{{ substr(strip_tags($restaurant->description), 0, 100) }}</p>
                                     </div>
-                                </ul>
-                            </div>
-                        </div>
-                    @endforeach
-                @endif
+                                @endif
+                            @endforeach
+                        @else
+                            @foreach ($data as $restaurant)
+                                <div class="carousel-item1">
+                                    <div class="posts recent-posts">
+                                        <ul>
+                                            <li>
+                                                <img class="align-content-center" alt="img"
+                                                    src="{{ asset($restaurant->image) }}"
+                                                    style="height: 100px; width:100px;">
+                                                <div>
+                                                    <a href="{{ route('res_details', ['slug' => $restaurant->slug]) }}">
+                                                        <h3>{{ $restaurant->name }}</h3>
+                                                    </a>
+                                                    <p>{{ substr(strip_tags($restaurant->description), 0, 100) }}</p>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
+                </div>
             </div>
         </div>
     </section>
+
+
 
     <section class="featured-restaurant-list">
         <div class="container">
@@ -135,7 +196,6 @@
 
 @endsection
 @push('script')
-    <!-- Include jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
@@ -159,6 +219,43 @@
                     }
                 });
             });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            // Set up auto-scrolling
+            var autoScrollInterval = 5000;
+            var scrollSpeed = 1;
+            var isAutoScrolling = true;
+            var itemWidth = $(".carousel-item1").outerWidth(true);
+
+            function autoScroll() {
+                if (isAutoScrolling) {
+                    $(".carousel1").animate({
+                        scrollLeft: "+=" + itemWidth
+                    }, "slow", function() {
+                        // Reset scroll position to the beginning if reached the end
+                        if ($(".carousel1").scrollLeft() >= $(".carousel1")[0].scrollWidth - $(".carousel1")
+                            .outerWidth()) {
+                            $(".carousel1").scrollLeft(0);
+                        }
+                    });
+                }
+            }
+
+            // Start auto-scrolling
+            var autoScrollTimer = setInterval(autoScroll, autoScrollInterval);
+
+            // Pause auto-scrolling on mouse hover
+            $(".carousel1").hover(
+                function() {
+                    isAutoScrolling = false;
+                },
+                function() {
+                    isAutoScrolling = true;
+                }
+            );
         });
     </script>
 @endpush

@@ -6,7 +6,8 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <style>
         #map {
-            height: 500px; /* Use 100% height of the map container */
+            height: 500px;
+            /* Use 100% height of the map container */
             width: 100%;
         }
 
@@ -69,16 +70,23 @@
                         <div class="posts">
                             <h3>Trending Restaurant Places</h3>
                             @php
-                            $data = \App\Models\MapsData::where('status', 'active')->get();
+                                $data = \App\Models\MapsData::where('status', 'active')
+                                    ->inRandomOrder()
+                                    ->take(4)
+                                    ->get();
                             @endphp
+
                             {{-- @dd($data) --}}
                             @forelse ($data as $item)
                                 <ul class="trending-dishes-list">
                                     <li class="pt-0">
                                         <div class="dishes-list">
-                                            <img src="{{ asset($item->image) }}" alt="{{ $item->name }}" style="width: 80px; height:80px;">
+                                            <img src="{{ asset($item->image) }}" alt="{{ $item->name }}"
+                                                style="width: 80px; height:80px;">
                                         </div>
-                                        <h5><a href="{{ route('res_details', ['slug' => $item->slug]) }}">{{ $item->name }}</a></h5>
+                                        <h5><a
+                                                href="{{ route('res_details', ['slug' => $item->slug]) }}">{{ $item->name }}</a>
+                                        </h5>
                                     </li>
                                 </ul>
                             @empty
@@ -121,7 +129,8 @@
 
             // Add the Locate Me button to the map container
             locateButton = document.createElement('div');
-            locateButton.innerHTML = '<button id="locate-button" class="btn btn-primary"><i class="fas fa-location-crosshairs"></i> Locate Me</button>';
+            locateButton.innerHTML =
+                '<button id="locate-button" class="btn btn-primary"><i class="fas fa-location-crosshairs"></i> Locate Me</button>';
             locateButton.style.position = 'absolute';
             locateButton.style.bottom = '10px';
             locateButton.style.right = '10px';
@@ -136,13 +145,13 @@
             locateButton.style.textDecoration = 'none';
             locateButton.style.transition = 'background-color 0.3s ease-in-out';
 
-            locateButton.addEventListener('click', function () {
+            locateButton.addEventListener('click', function() {
                 loadingSpinner.show();
 
                 // Try HTML5 geolocation.
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(
-                        function (position) {
+                        function(position) {
                             const pos = {
                                 lat: position.coords.latitude,
                                 lng: position.coords.longitude,
@@ -162,20 +171,23 @@
                             $.ajax({
                                 url: '/get-data',
                                 type: 'GET',
-                                data: { latitude: pos.lat, longitude: pos.lng },
-                                success: function (data) {
+                                data: {
+                                    latitude: pos.lat,
+                                    longitude: pos.lng
+                                },
+                                success: function(data) {
                                     // Update the UI with the received data
                                     console.log(data);
                                     displayData(data);
                                     loadingSpinner.hide();
                                 },
-                                error: function (error) {
+                                error: function(error) {
                                     console.error(error);
                                     loadingSpinner.hide();
                                 }
                             });
                         },
-                        function () {
+                        function() {
                             handleLocationError(true, locateButton, map.getCenter());
                         }
                     );
@@ -195,7 +207,7 @@
             const autocomplete = new google.maps.places.Autocomplete(searchInput);
 
             // When the user selects a place from the dropdown, pan to the location and fetch data
-            autocomplete.addListener('place_changed', function () {
+            autocomplete.addListener('place_changed', function() {
                 loadingSpinner.show();
                 const place = autocomplete.getPlace();
 
@@ -217,14 +229,17 @@
                 $.ajax({
                     url: '/get-data',
                     type: 'GET',
-                    data: { latitude: location.lat, longitude: location.lng },
-                    success: function (data) {
+                    data: {
+                        latitude: location.lat,
+                        longitude: location.lng
+                    },
+                    success: function(data) {
                         // Update the UI with the received data
                         console.log(data);
                         displayData(data);
                         loadingSpinner.hide();
                     },
-                    error: function (error) {
+                    error: function(error) {
                         console.error(error);
                         loadingSpinner.hide();
                     }
@@ -235,15 +250,19 @@
         function handleLocationError(browserHasGeolocation, infoWindow, pos) {
             // Handle geolocation errors.
             // InfoWindow is optional. You can use it to display an error message.
-            console.error(browserHasGeolocation ? 'Error: The Geolocation service failed.' : 'Error: Your browser doesn\'t support geolocation.');
+            console.error(browserHasGeolocation ? 'Error: The Geolocation service failed.' :
+                'Error: Your browser doesn\'t support geolocation.');
         }
 
         function displayData(data) {
             // Update the UI with the fetched data
-            data.forEach(function (item) {
+            data.forEach(function(item) {
                 // Create a marker for each location
                 const marker = new google.maps.Marker({
-                    position: { lat: parseFloat(item.latitude), lng: parseFloat(item.longitude) },
+                    position: {
+                        lat: parseFloat(item.latitude),
+                        lng: parseFloat(item.longitude)
+                    },
                     map: map,
                     title: item.name,
                     icon: item.type === 'restaurant' ? {
@@ -270,7 +289,7 @@
                     content: contentString,
                 });
 
-                marker.addListener('click', function () {
+                marker.addListener('click', function() {
                     infowindow.open(map, marker);
                 });
             });

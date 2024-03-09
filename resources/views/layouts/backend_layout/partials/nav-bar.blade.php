@@ -30,7 +30,7 @@
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
                     <li class="dropdown-header">
                         You have {{ $notifications->count() }} new notifications
-                        <a href=""><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+                        <a href="{{route('contact_view')}}"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
                     </li>
                     <li>
                         <hr class="dropdown-divider">
@@ -284,7 +284,7 @@
                 },
                 success: function(response) {
                     console.log('Notification marked as read');
-                    window.location.reload();
+                    window.location.href = 'admin/all_contacts';
                 },
                 error: function(xhr, status, error) {
                     console.error('Error marking notification as read:', error);

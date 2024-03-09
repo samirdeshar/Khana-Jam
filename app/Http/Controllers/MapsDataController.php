@@ -118,15 +118,16 @@ class MapsDataController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MapsData $maps)
+    public function update(Request $request, MapsData $maps, $id)
     {
         if ($request->user()->can("edit-post")) {
             $data=$request->all();
+            $re = MapsData::findorFail($id);
+
             DB::beginTransaction();
             try {
-                   $data['slug'] = Str::slug($data['name']);
-                 $maps->fill($data);
-                 $maps->save();
+                $re->update($data);
+                 $re->save();
              DB::commit();
              Toastr::success('Successfully maps  Updated', 'Success !!!', ['positionClass'=>'toast-top-right']);
             }catch (\Throwable $th) {
