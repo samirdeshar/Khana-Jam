@@ -205,13 +205,13 @@
                                         <img alt="img" src="{{ asset($restaurant->image) }}"
                                             style="height: 100px; width:100px;">
                                         <div>
-                                            <a href="{{ route('res_details', ['slug' => $restaurant->slug]) }}">{{ $recommendation->updated_at->format('F j, Y') }}
+                                            <a href="{{ route('res_details', ['slug' => $restaurant->slug]) }}">{{ $restaurant->updated_at->format('F j, Y') }}
                                                 <h3>{{ $restaurant->name }}</h3>
                                             </a>
                                             <h6>Rating:
                                                 @php
                                                     $averageRatingFormatted = number_format(
-                                                        $recommendation->averageRating,
+                                                        $restaurant->averageRating,
                                                         1,
                                                     );
                                                 @endphp

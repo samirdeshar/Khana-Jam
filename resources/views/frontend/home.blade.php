@@ -99,9 +99,11 @@
     <section class="featured-restaurant-list" style="margin-bottom: 50px;">
         <div class="container">
             <div class="row">
-                <h3 class="text-center m-5">Recommended Posts</h3>
+                @if (auth()->guard('customer')->check())
+                <h3 class="text-center m-5">Restaurants in your Area</h3>
                 <div class="carousel-container">
                     <div class="carousel1">
+                        @endif
                         @if (auth()->guard('customer')->check())
                             @php
                                 $customerCity = strtolower(auth()->guard('customer')->user()->city);
@@ -127,7 +129,8 @@
                                     </div>
                                 @endif
                             @endforeach
-                        @else
+
+                        {{--@else
                             @foreach ($data as $restaurant)
                                 <div class="carousel-item1">
                                     <div class="posts recent-posts">
@@ -146,7 +149,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                            @endforeach
+                            @endforeach--}}
                         @endif
                     </div>
                 </div>

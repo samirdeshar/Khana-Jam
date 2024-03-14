@@ -65,7 +65,7 @@
                 <div class="col-lg-6">
                     <div class="box register">
                         <div class="parallax" style="background-color: black"></div>
-                        <h3>Log In Your Account</h3>
+                        <h3>Create Your Account</h3>
                         <form action="{{ route('customer.signup') }}" method="post" enctype="multipart/form-data">
                             @csrf
 
