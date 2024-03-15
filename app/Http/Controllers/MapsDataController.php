@@ -126,7 +126,9 @@ class MapsDataController extends Controller
 
             DB::beginTransaction();
             try {
+                $re['slug'] = Str::slug($data['name']);
                 $re->update($data);
+                // dd($re);
                  $re->save();
              DB::commit();
              Toastr::success('Successfully maps  Updated', 'Success !!!', ['positionClass'=>'toast-top-right']);

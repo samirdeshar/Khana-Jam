@@ -26,6 +26,7 @@ class FrontController extends Controller
             $restaurant->averageRating = $this->calculateAverageRating($restaurant);
         }
         $sortedRestaurants = $restaurants->sortByDesc('averageRating');
+        // dd($sortedRestaurants);
         $sortedRestaurants = $restaurants->filter(function ($restaurant) {
             return $restaurant->averageRating > 2;  
         });

@@ -19,10 +19,10 @@
                             <div>
                                 <a href="#"><span>{{ $data->updated_at }}</span></a>
                                 <h2>{{ $data->name }}</h2>
-                                <div class="d-flex align-items-center"><img alt="img" class="me-3"
+                                {{-- <div class="d-flex align-items-center"><img alt="img" class="me-3"
                                         src="assets/img/man.jpg">
                                     <h6>by Thomas Walimes</h6>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
