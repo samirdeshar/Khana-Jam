@@ -92,6 +92,7 @@ class LoginController extends Controller
     public function forgetPasswordSend(ForgetPasswordRequest $request)
     {
         $customer = Customer::whereEmail($request->email)->first();
+       
         if (!$customer) {
             Toastr::warning('Invalid Email.', 'Error !!!');
             return redirect()->back();

@@ -17,7 +17,7 @@
   </div><!-- End Page Title -->
 
 
-<ul class="nav nav-tabs" id="myTab" role="tablist">
+{{-- <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
       <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Setting</button>
     </li>
@@ -27,7 +27,7 @@
     <li class="nav-item" role="presentation">
         <button class="nav-link" id="seo-tab" data-bs-toggle="tab" data-bs-target="#seo-tab-pane" type="button" role="tab" aria-controls="seo-tab-pane" aria-selected="false">SEO Settings</button>
       </li>
-</ul>
+</ul> --}}
 <div class="tab-content" id="myTabContent">
 
     {{-- -----------------------Setting------------------------- --}}
@@ -35,18 +35,18 @@
         @include('admin.setting.main');
     </div>
 
-    {{-- ---------------------------/Setting----------------------- --}}
+      {{-- ---------------------------/Setting-----------------------
 
-    {{-- --------------------------Page Info-------------------------- --}}
-    <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-        @include('admin.setting.pageinfo');
-    </div>
-    {{-- -------------------------------/Page Info----------------------------- --}}
-    {{-- --------------------------SEO Settings-------------------------- --}}
-    <div class="tab-pane fade" id="seo-tab-pane" role="tabpanel" aria-labelledby="seo-tab" tabindex="0">
-        @include('admin.setting.seo');
-    </div>
-    {{-- -------------------------------/SEO Settings----------------------------- --}}
+      --------------------------Page Info--------------------------
+      <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+          @include('admin.setting.pageinfo');
+      </div>
+      -------------------------------/Page Info-----------------------------
+      --------------------------SEO Settings--------------------------
+      <div class="tab-pane fade" id="seo-tab-pane" role="tabpanel" aria-labelledby="seo-tab" tabindex="0">
+          @include('admin.setting.seo');
+      </div>
+      -------------------------------/SEO Settings----------------------------- --}}
 
 
 </div>

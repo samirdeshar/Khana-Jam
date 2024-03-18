@@ -29,9 +29,9 @@
                     <p>
                         {!! $data->description !!}
                     </p>
-                    <div class="quote">
+                    {{-- <div class="quote">
                         <h3>{{ strip_tags($data->description) }}</h3>
-                    </div>
+                    </div> --}}
                     <div class="post-tags">
                         <h6>Tags:</h6>
                         <ul>
