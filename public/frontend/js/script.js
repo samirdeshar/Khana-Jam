@@ -68,6 +68,13 @@ const hideHeader = function () {
 }
 
 window.addEventListener("scroll", function () {
+  var header = document.querySelector("your-header-selector");
+  var backTopBtn = document.querySelector("your-back-top-button-selector");
+
+  if (!header || !backTopBtn) {
+    return; // Exit the function if either element is not found
+  }
+
   if (window.scrollY >= 50) {
     header.classList.add("active");
     backTopBtn.classList.add("active");
@@ -77,6 +84,7 @@ window.addEventListener("scroll", function () {
     backTopBtn.classList.remove("active");
   }
 });
+
 
 
 

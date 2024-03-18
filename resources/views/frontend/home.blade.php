@@ -196,6 +196,15 @@
             </div>
         </div>
     </section>
+    <section class="featured-restaurant-list">
+        <div class="container">
+            <div class="row">
+                <h3 class="text-center m-5">Near By You</h3>
+                <div id="restaurant-list" class="row">
+                </div>
+            </div>
+        </div>
+    </section>
 
 @endsection
 @push('script')
@@ -261,4 +270,90 @@
             );
         });
     </script>
+   <script>
+    // Fetch user location and nearby restaurants
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
+                const pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                };
+
+                // Fetch nearby restaurants using AJAX
+                $.ajax({
+                    url: '/get-data',
+                    type: 'GET',
+                    data: {
+                        latitude: pos.lat,
+                        longitude: pos.lng
+                    },
+                    success: function(data) {
+                        // Update the UI with nearby restaurant data
+                        updateRestaurantList(data);
+                    },
+                    error: function(error) {
+                        console.error(error);
+                    }
+                });
+            },
+            function() {
+                console.error('Error: The Geolocation service failed.');
+            }
+        );
+    } else {
+        console.error('Error: Your browser doesn\'t support geolocation.');
+    }
+
+    // Function to update restaurant list in the UI
+    function updateRestaurantList(restaurants) {
+        const restaurantListContainer = $('#restaurant-list');
+        restaurantListContainer.empty();
+
+        // Select only the first 6 restaurants
+        const limitedRestaurants = restaurants.slice(0, 6);
+
+        limitedRestaurants.forEach(function(restaurant) {
+            // Format average rating
+            const averageRatingFormatted = restaurant.average_rating !== undefined ? restaurant.average_rating.toFixed(1) : 'N/A';
+            const starsHtml = getStarsHtml(averageRatingFormatted);
+
+            // Generate restaurant HTML
+            const restaurantHtml = `
+                <div class="col-xl-4">
+                    <div class="posts recent-posts">
+                        <ul>
+                            <img class="align-content-center" alt="img" src="${restaurant.image}"
+                                style="height: 100px; width:100px;">
+                            <div>
+                                <a href="{{ route('res_details', ['slug' => $restaurant->slug]) }}">
+                                    <h3>${restaurant.name}</h3>
+                                </a>
+                                <h6>Rating: ${starsHtml} ${averageRatingFormatted}</h6>
+                                <p>${restaurant.description.substring(0, 100)}</p>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            `;
+
+            // Append restaurant HTML to container
+            restaurantListContainer.append(restaurantHtml);
+        });
+    }
+
+    // Function to generate star rating HTML
+    function getStarsHtml(rating) {
+        let starsHtml = '';
+        for (let i = 1; i <= 5; i++) {
+            if (i <= rating) {
+                starsHtml += '<i class="fas fa-star text-warning"></i>';
+            } else {
+                starsHtml += '<i class="far fa-star text-warning"></i>';
+            }
+        }
+        return starsHtml;
+    }
+</script>
+
 @endpush
