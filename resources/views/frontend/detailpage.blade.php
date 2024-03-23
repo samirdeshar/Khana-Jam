@@ -21,7 +21,6 @@
                                 <h2>{{ $data->name }}</h2>
                                 {{-- <div class="d-flex align-items-center"><img alt="img" class="me-3"
                                         src="assets/img/man.jpg">
-                                    <h6>by Thomas Walimes</h6>
                                 </div> --}}
                             </div>
                         </div>
@@ -176,8 +175,9 @@
                                                 <a href="{{ route('res_details', ['slug' => $restaurant->slug]) }}">{{ $recommendation->updated_at->format('F j, Y') }}
                                                     <h3>{{ $restaurant->name }}</h3>
                                                 </a>
-                                                <h6>Rating:
+                                                {{-- <h6>Rating:
                                                     @php
+                                                    
                                                         $averageRatingFormatted = number_format(
                                                             $recommendation->averageRating,
                                                             1,
@@ -191,7 +191,7 @@
                                                         @endif
                                                     @endfor
                                                     {{ $averageRatingFormatted }}
-                                                </h6>
+                                                </h6> --}}
                                             </div>
 
                                         </li>
@@ -205,13 +205,13 @@
                                         <img alt="img" src="{{ asset($restaurant->image) }}"
                                             style="height: 100px; width:100px;">
                                         <div>
-                                            <a href="{{ route('res_details', ['slug' => $restaurant->slug]) }}">{{ $recommendation->updated_at->format('F j, Y') }}
+                                            <a href="{{ route('res_details', ['slug' => $restaurant->slug]) }}">{{ $restaurant->updated_at->format('F j, Y') }}
                                                 <h3>{{ $restaurant->name }}</h3>
                                             </a>
-                                            <h6>Rating:
+                                            {{-- <h6>Rating:
                                                 @php
                                                     $averageRatingFormatted = number_format(
-                                                        $recommendation->averageRating,
+                                                        $restaurant->averageRating,
                                                         1,
                                                     );
                                                 @endphp
@@ -223,7 +223,7 @@
                                                     @endif
                                                 @endfor
                                                 {{ $averageRatingFormatted }}
-                                            </h6>
+                                            </h6> --}}
                                             {{-- <p>{{ substr(strip_tags($restaurant->description), 0, 100) }}</p> --}}
                                         </div>
                                     </li>

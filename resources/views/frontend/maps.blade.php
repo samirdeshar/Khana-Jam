@@ -71,7 +71,8 @@
                 cursor: pointer;
                 border-radius: 5px;
             }
-            #directionsButton:hover{
+
+            #directionsButton:hover {
                 background-color: #50a553;
 
             }
@@ -287,33 +288,34 @@
                 console.error(browserHasGeolocation ? 'Error: The Geolocation service failed.' :
                     'Error: Your browser doesn\'t support geolocation.');
             }
- const items = {!! json_encode($data) !!};
-           function displayData(data) {
-    // Update the UI with the fetched data
-    data.forEach(function(item) {
-        // Create a marker for each location
-        const marker = new google.maps.Marker({
-            position: {
-                lat: parseFloat(item.latitude),
-                lng: parseFloat(item.longitude)
-            },
-            map: map,
-            title: item.name,
-            icon: {
-                url: '../img/pin.png',
-                scaledSize: new google.maps.Size(40, 40),
-                scale: 0.5,
-                strokeWeight: 0.2,
-                strokeColor: 'black',
-                strokeOpacity: 1,
-                fillColor: '#4183D7',
-                fillOpacity: 0.7
-            }
-        });
+            const items = {!! json_encode($data) !!};
 
-        // Create a popup for each marker
-        const contentString =
-            `<div class="popup-content" style="height: 300px; width: 300px;">
+            function displayData(data) {
+                // Update the UI with the fetched data
+                data.forEach(function(item) {
+                    // Create a marker for each location
+                    const marker = new google.maps.Marker({
+                        position: {
+                            lat: parseFloat(item.latitude),
+                            lng: parseFloat(item.longitude)
+                        },
+                        map: map,
+                        title: item.name,
+                        icon: {
+                            url: '../img/pin.png',
+                            scaledSize: new google.maps.Size(40, 40),
+                            scale: 0.5,
+                            strokeWeight: 0.2,
+                            strokeColor: 'black',
+                            strokeOpacity: 1,
+                            fillColor: '#4183D7',
+                            fillOpacity: 0.7
+                        }
+                    });
+
+                    // Create a popup for each marker
+                    const contentString =
+                        `<div class="popup-content" style="height: 300px; width: 300px;">
                 <a href="/res-details/${item.slug}" ><img src="${item.image}" alt="${item.name}" style="width: 300px; height: 150px;">
                 <h3>${item.name}</h3></a>
                 <p>${item.description}</p>
@@ -321,15 +323,15 @@
                 <button id="directionsButton" onclick="getDirections(${item.latitude}, ${item.longitude})">Get Directions</button>
             </div>`;
 
-        const infowindow = new google.maps.InfoWindow({
-            content: contentString,
-        });
+                    const infowindow = new google.maps.InfoWindow({
+                        content: contentString,
+                    });
 
-        marker.addListener('click', function() {
-            infowindow.open(map, marker);
-        });
-    });
-}
+                    marker.addListener('click', function() {
+                        infowindow.open(map, marker);
+                    });
+                });
+            }
 
 
             function renderStars(rating) {
