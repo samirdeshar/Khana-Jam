@@ -177,7 +177,12 @@
         <div class="container">
             <div class="row">
                 <h3 class="text-center m-5  ">Top Rated Khana Jam Places</h3>
-                @foreach ($restaurants as $restaurant)
+                 @php
+                    $sortedRestaurants = $restaurants->sortByDesc('averageRating');
+                    $count =0
+                @endphp
+                @if ($count<6)
+                @foreach ($sortedRestaurants as $restaurant)
                     <div class="col-xl-4">
                         <div class="posts recent-posts">
                             <ul>
@@ -207,6 +212,10 @@
                         </div>
                     </div>
                 @endforeach
+                @php
+                    $count++;
+                @endphp
+                @endif
             </div>
         </div>
     </section>
