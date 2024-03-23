@@ -26,6 +26,10 @@ class FrontController extends Controller
             $restaurant->averageRating = $this->calculateAverageRating($restaurant);
         }
         $sortedRestaurants = $restaurants->sortByDesc('averageRating');
+        //dd($sortedRestaurants);
+        
+        
+
         // dd($sortedRestaurants);
         $sortedRestaurants = $restaurants->filter(function ($restaurant) {
             return $restaurant->averageRating > 2;  
@@ -52,7 +56,8 @@ class FrontController extends Controller
     public function resturantdetailPage($slug)
     {
         // Get the data for the current page using the provided slug
-        $posts = MapsData::where('status', 'active')->get();
+        $posts = MapsData::where('status', 'active')->limit(10)->get();
+
         $data = MapsData::where('slug', $slug)->first();
         $comments = Comment::where('res_id', $data->id)->latest()->take(10)->get();
         if (!$data) {

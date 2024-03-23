@@ -21,7 +21,6 @@
                                 <h2>{{ $data->name }}</h2>
                                 {{-- <div class="d-flex align-items-center"><img alt="img" class="me-3"
                                         src="assets/img/man.jpg">
-                                    <h6>by Thomas Walimes</h6>
                                 </div> --}}
                             </div>
                         </div>
@@ -29,9 +28,9 @@
                     <p>
                         {!! $data->description !!}
                     </p>
-                    <div class="quote">
+                    {{-- <div class="quote">
                         <h3>{{ strip_tags($data->description) }}</h3>
-                    </div>
+                    </div> --}}
                     <div class="post-tags">
                         <h6>Tags:</h6>
                         <ul>
@@ -135,8 +134,8 @@
                                         style="height: 100px; width:100px;">
                                     <div>
                                         <a
-                                            href="{{ route('res_details', ['slug' => $recommendation->slug]) }}">{{ $recommendation->updated_at->format('F j, Y') }}</a>
-                                        <h3>{{ $recommendation->name }}</h3></a>
+                                            href="{{ route('res_details', ['slug' => $recommendation->slug]) }}">{{ $recommendation->updated_at->format('F j, Y') }}<h3>{{ $recommendation->name }}</h3></a>
+                                      
                                         {{-- <h6><a href="{{ route('blog.show', ['slug' => $recommendation->slug]) }}">{{ $recommendation->name }}</a></h6> --}}
                                         <h6>Rating:
                                             @php
@@ -176,8 +175,9 @@
                                                 <a href="{{ route('res_details', ['slug' => $restaurant->slug]) }}">{{ $recommendation->updated_at->format('F j, Y') }}
                                                     <h3>{{ $restaurant->name }}</h3>
                                                 </a>
-                                                <h6>Rating:
+                                                {{-- <h6>Rating:
                                                     @php
+                                                    
                                                         $averageRatingFormatted = number_format(
                                                             $recommendation->averageRating,
                                                             1,
@@ -191,7 +191,7 @@
                                                         @endif
                                                     @endfor
                                                     {{ $averageRatingFormatted }}
-                                                </h6>
+                                                </h6> --}}
                                             </div>
 
                                         </li>
@@ -208,7 +208,7 @@
                                             <a href="{{ route('res_details', ['slug' => $restaurant->slug]) }}">{{ $restaurant->updated_at->format('F j, Y') }}
                                                 <h3>{{ $restaurant->name }}</h3>
                                             </a>
-                                            <h6>Rating:
+                                            {{-- <h6>Rating:
                                                 @php
                                                     $averageRatingFormatted = number_format(
                                                         $restaurant->averageRating,
@@ -223,7 +223,7 @@
                                                     @endif
                                                 @endfor
                                                 {{ $averageRatingFormatted }}
-                                            </h6>
+                                            </h6> --}}
                                             {{-- <p>{{ substr(strip_tags($restaurant->description), 0, 100) }}</p> --}}
                                         </div>
                                     </li>

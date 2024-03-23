@@ -71,7 +71,8 @@
                 cursor: pointer;
                 border-radius: 5px;
             }
-            #directionsButton:hover{
+
+            #directionsButton:hover {
                 background-color: #50a553;
 
             }
@@ -92,7 +93,7 @@
                     <div class="col-md-3">
                         <div class="content-list">
                             <div class="posts">
-                                <h3>Trending Restaurant Places</h3>
+                                <h3>Restaurant Places</h3>
                                 @php
                                     $data = \App\Models\MapsData::where('status', 'active')
                                         ->inRandomOrder()
@@ -287,6 +288,7 @@
                 console.error(browserHasGeolocation ? 'Error: The Geolocation service failed.' :
                     'Error: Your browser doesn\'t support geolocation.');
             }
+            const items = {!! json_encode($data) !!};
 
             function displayData(data) {
                 // Update the UI with the fetched data
@@ -301,8 +303,7 @@
                         title: item.name,
                         icon: {
                             url: '../img/pin.png',
-                            scaledSize: new google.maps.Size(40,
-                                40),
+                            scaledSize: new google.maps.Size(40, 40),
                             scale: 0.5,
                             strokeWeight: 0.2,
                             strokeColor: 'black',
@@ -315,14 +316,12 @@
                     // Create a popup for each marker
                     const contentString =
                         `<div class="popup-content" style="height: 300px; width: 300px;">
-                    <a href="{{ route('res_details', ['slug' => $item->slug]) }}" ><img src="${item.image}" alt="${item.name}" style="width: 300px; height: 150px;">
-                    <h3>${item.name}</h3></a>
-                    <p>${item.description}</p>
-                    <p>Rating: ${renderStars(item.average_rating)}</p>
-                    <button id="directionsButton" onclick="getDirections(${item.latitude}, ${item.longitude})">Get Directions</button>
-
-                    <!-- Add more information as needed -->
-                </div>`;
+                <a href="/res-details/${item.slug}" ><img src="${item.image}" alt="${item.name}" style="width: 300px; height: 150px;">
+                <h3>${item.name}</h3></a>
+                <p>${item.description}</p>
+                <p>Rating: ${renderStars(item.average_rating)}</p>
+                <button id="directionsButton" onclick="getDirections(${item.latitude}, ${item.longitude})">Get Directions</button>
+            </div>`;
 
                     const infowindow = new google.maps.InfoWindow({
                         content: contentString,
@@ -333,6 +332,7 @@
                     });
                 });
             }
+
 
             function renderStars(rating) {
                 const filledStars = '<i class="fas fa-star golden-star"></i>'.repeat(Math.floor(rating));

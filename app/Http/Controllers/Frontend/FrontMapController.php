@@ -14,8 +14,7 @@ class FrontMapController extends Controller
     {
         $latitude = $request->input('latitude');
         $longitude = $request->input('longitude');
-        $radius = 100; // Set your desired radius (in degrees)
-        // dd($latitude,$longitude);
+        $radius = 20;
 
         // Perform a query based on latitude and longitude within a certain radius
         $data = MapsData::whereBetween('latitude', [$latitude - $radius, $latitude + $radius])
@@ -25,7 +24,6 @@ class FrontMapController extends Controller
             $averageRating = $this->calculateAverageRating($restaurant);
             $restaurant->average_rating = $averageRating;
         }
-
         return response()->json($data);
     }
     public function mapsdata()

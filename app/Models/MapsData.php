@@ -10,4 +10,6 @@ class MapsData extends Model
     use HasFactory;
 
     protected $guarded =[];
+
+   
 }

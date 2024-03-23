@@ -71,9 +71,11 @@
         <div class="row">
             <div class="col-md-3 sidebar">
                 <h3>Filter Options</h3>
+               {{--
                 <label for="radius">Radius (km):</label>
                 <input type="range" id="radius" name="radius" min="1" max="100" value="10">
                 <span id="radiusValue">10</span> km
+                --}} 
             </div>
             <div class="col-md-8" style="padding-left: 2rem;">
                 <div class="d-flex justify-content-end mb-3">
@@ -81,11 +83,7 @@
                     </button>
                     <div>
                         {{-- <label for="sort">Sort By:</label> --}}
-                        <select id="sort" class="form-control">
-                            <option value="top_rating">Sort</option>
-                            <option value="price_asc">Price: Low to High</option>
-                            <option value="price_desc">Price: High to Low</option>
-                        </select>
+                      
                     </div>
                 </div>
                 <h2 class="animate">Search Results</h2>
